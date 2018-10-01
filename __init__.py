@@ -12,19 +12,24 @@ def index():
     else:
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
-        time = req.get('queryResult').get('outputContexts')[0].get('parameters').get('time.original')
+        source = req.get('originalDetectIntentRequest').get('source')
         
         print(req)
         intent_language = intent_name.split("_")
         if intent_language[1] == 'CH':
             response = {
-                "fulfillmentText":  "你要訂 " + time + "嘛！ 好！",
+                "fulfillmentText":  "你要訂 " + source + "嘛！ 好！",
             }
         else:
             response = {
-                "fulfillmentText": "You choose " + time + ". No problem！",
+                "fulfillmentText": "You choose " + source + ". No problem！",
             }
-        return make_response(jsonify(response))
+        if source == 'line':
+            return make_response(jsonify(response))
+        else:
+            return make_response(jsonify({
+                "fulfillmentText": "Sorry: this channel will not process the current intent",
+            }))
 
 if __name__ == "__main__":
     app.run(debug=True)
