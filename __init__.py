@@ -13,7 +13,8 @@ def index():
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
         source = req.get('originalDetectIntentRequest').get('source')
-        
+        time = req.get('queryResult').get('outputContexts')
+        print(time)
         print(req)
         intent_language = intent_name.split("_")
         if intent_language[1] == 'CH':
