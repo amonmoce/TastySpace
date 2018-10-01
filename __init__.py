@@ -15,7 +15,7 @@ def index():
         fulfillmentText = req.get('queryResult').get('fulfillmentText')
         print(req)
         response = {
-            "fulfillmentText": fulfillmentText + '(' + intent_name + ')',
+            "fulfillmentText": fulfillmentText + "(" + intent_name + ")",
         }
         return make_response(jsonify(response))
 
