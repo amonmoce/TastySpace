@@ -13,10 +13,11 @@ def index():
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
         fulfillmentText = req.get('queryResult').get('fulfillmentText')
+        print(req)
         response = {
             "fulfillmentText": fulfillmentText + '(' + intent_name + ')',
         }
-
+        return make_response(jsonify(response))
 
 if __name__ == "__main__":
     app.run(debug=True)
