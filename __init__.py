@@ -12,11 +12,18 @@ def index():
     else:
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
-        fulfillmentText = req.get('queryResult').get('fulfillmentText')
+        time = req.get('queryResult').get('outputContexts').get('parameters').get('time.original')
+        
         print(req)
-        response = {
-            "fulfillmentText": fulfillmentText + "(" + intent_name + ")",
-        }
+        intent_language = intent_name.split("_")
+        if intent_language[1] == 'CH':
+            response = {
+                "fulfillmentText":  "你要訂 " + time + "嘛！ 好！",
+            }
+        else:
+            response = {
+                "fulfillmentText": "You choose " + time + ". No problem！",
+            }
         return make_response(jsonify(response))
 
 if __name__ == "__main__":
