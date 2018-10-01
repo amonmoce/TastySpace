@@ -12,7 +12,7 @@ def index():
     else:
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
-        time = req.get('queryResult').get('outputContexts').get('parameters').get('time.original')
+        time = req.get('queryResult').get('outputContexts')[0].get('parameters').get('time.original')
         
         print(req)
         intent_language = intent_name.split("_")
