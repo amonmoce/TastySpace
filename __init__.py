@@ -13,17 +13,17 @@ def index():
         req = request.get_json(force=True)
         intent_name = req.get('queryResult').get('intent').get('displayName')
         source = req.get('originalDetectIntentRequest').get('source')
-        time = req.get('queryResult').get('outputContexts')
-        print(time)
+        time = req.get('queryResult').get('parameters').get('time')
+
         print(req)
         intent_language = intent_name.split("_")
         if intent_language[1] == 'CH':
             response = {
-                "fulfillmentText":  "你要訂 " + source + "嘛！ 好！",
+                "fulfillmentText":  "你要訂 " + time + "嘛！ 好！",
             }
         else:
             response = {
-                "fulfillmentText": "You choose " + source + ". No problem！",
+                "fulfillmentText": "You choose " + time + ". No problem！",
             }
         if source == 'line':
             return make_response(jsonify(response))
