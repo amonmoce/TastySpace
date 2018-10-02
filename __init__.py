@@ -2,7 +2,6 @@ from flask import Flask, Response
 from flask import jsonify
 from flask import make_response
 from flask import request
-import dateutil.parser
 
 app = Flask(__name__)
 
@@ -15,12 +14,11 @@ def index():
         #intent_name = req.get('queryResult').get('intent').get('displayName')
         source = req.get('originalDetectIntentRequest').get('source')
         time = req.get('queryResult').get('parameters').get('time')
-        time_converted = dateutil.parser.parse(time)
 
         print(req)
         
         response = {
-            "fulfillmentText": "You choose " + time_converted + ". No problem！",
+            "fulfillmentText": "You choose " + time + ". No problem！",
         }
         if source == 'line' or source=='facebook':
             return make_response(jsonify(response))
