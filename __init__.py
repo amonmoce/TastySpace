@@ -2,6 +2,7 @@ from flask import Flask, Response
 from flask import jsonify
 from flask import make_response
 from flask import request
+import dateutil.parser
 
 app = Flask(__name__)
 
@@ -11,20 +12,16 @@ def index():
         return Response("TastySpace is up and running!"), 200
     else:
         req = request.get_json(force=True)
-        intent_name = req.get('queryResult').get('intent').get('displayName')
+        #intent_name = req.get('queryResult').get('intent').get('displayName')
         source = req.get('originalDetectIntentRequest').get('source')
         time = req.get('queryResult').get('parameters').get('time')
+        time_converted = dateutil.parser.parse(time)
 
         print(req)
-        intent_language = intent_name.split("_")
-        if intent_language[1] == 'CH':
-            response = {
-                "fulfillmentText":  "你要訂 " + time + "嘛！ 好！",
-            }
-        else:
-            response = {
-                "fulfillmentText": "You choose " + time + ". No problem！",
-            }
+        
+        response = {
+            "fulfillmentText": "You choose " + time_converted + ". No problem！",
+        }
         if source == 'line' or source=='facebook':
             return make_response(jsonify(response))
         else:
