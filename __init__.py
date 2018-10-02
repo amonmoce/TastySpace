@@ -25,7 +25,7 @@ def index():
             response = {
                 "fulfillmentText": "You choose " + time + ". No problem！",
             }
-        if source == 'line' or source == 'facebook':
+        if source == 'line' or source=='facebook':
             return make_response(jsonify(response))
         else:
             return make_response(jsonify({
