@@ -13,8 +13,8 @@ def index():
         req = request.get_json(force=True)
         #intent_name = req.get('queryResult').get('intent').get('displayName')
         source = req.get('originalDetectIntentRequest').get('source')
-        time = req.get('queryResult').get('parameters').get('time')
-        time1 = eq.get('queryResult').get('outputContexts')[0].get('parameters').get('time.original')
+        #time = req.get('queryResult').get('parameters').get('time')
+        time = req.get('queryResult').get('outputContexts')[0].get('parameters').get('time.original')
         print(req)
         
         response = {
